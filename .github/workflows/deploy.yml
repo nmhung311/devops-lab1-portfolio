@@ -1,0 +1,63 @@
+# ============================================================
+# DevOps Lab 1 — CI/CD Pipeline với GitHub Actions
+# Sinh viên: Nguyễn Mạnh Hùng - MSSV: DTC235200335
+# Tự động deploy website lên GitHub Pages mỗi khi push code
+# ============================================================
+
+name: 🚀 Deploy to GitHub Pages
+
+# === Trigger khi nào pipeline chạy? ===
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch: # Cho phép trigger thủ công từ giao diện GitHub Actions
+
+# Cấp quyền cho GitHub Actions có thể push nhánh gh-pages
+permissions:
+  contents: write
+
+# === Các job trong pipeline ===
+jobs:
+  build-and-deploy:
+    name: 🏗️ Build, Test & Deploy
+    runs-on: ubuntu-latest # Chạy trên máy ảo Ubuntu runner miễn phí
+
+    steps:
+      # Step 1: Checkout mã nguồn từ repository
+      - name: 📦 Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Kiểm tra cấu trúc các file HTML
+      - name: 🧪 Validate HTML Files
+        run: |
+          echo "=================================================="
+          echo "  🔍 KIỂM TRA CẤU TRÚC FILE MÃ NGUỒN (CI CHECK)"
+          echo "=================================================="
+          ERRORS=0
+          for file in index.html about.html contact.html; do
+            if [ -f "$file" ]; then
+              size=$(wc -c < "$file")
+              lines=$(wc -l < "$file")
+              echo "✅ File $file: Hợp lệ ($size bytes, $lines dòng)"
+            else
+              echo "❌ File $file: KHÔNG TÌM THẤY!"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "❌ Pipeline dừng: Có $ERRORS file bị thiếu!"
+            exit 1
+          fi
+          echo "🎉 Tất cả các file HTML đã qua kiểm tra thành công!"
+
+      # Step 3: Triển khai website lên nhánh gh-pages (GitHub Pages)
+      - name: 🚀 Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          commit_message: "🚀 Auto-deploy portfolio via GitHub Actions CI/CD [skip ci]"

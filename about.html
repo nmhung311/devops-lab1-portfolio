@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu — Nguyễn Mạnh Hùng</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --secondary: #06b6d4;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #4338ca 0%, #312e81 50%, #1e1b4b 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            padding: 14px 28px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        nav .brand {
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+        }
+        nav .links {
+            display: flex;
+            gap: 20px;
+        }
+        nav a.nav-link {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a.nav-link:hover, nav a.nav-link.active {
+            color: #38bdf8;
+        }
+        .container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 760px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 26px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section {
+            margin-bottom: 24px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .section h2 {
+            font-size: 18px;
+            color: #312e81;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        p, li {
+            font-size: 14.5px;
+            color: #334155;
+            line-height: 1.6;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        .badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="brand">🚀 DevOps Lab 1</a>
+        <div class="links">
+            <a href="index.html" class="nav-link">Trang chủ</a>
+            <a href="about.html" class="nav-link active">Giới thiệu</a>
+            <a href="contact.html" class="nav-link">Liên hệ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>👨‍💻 Giới thiệu bản thân</h1>
+
+        <div class="section">
+            <h2>🎓 Học vấn & Định hướng</h2>
+            <p><strong>Sinh viên:</strong> Nguyễn Mạnh Hùng (MSSV: DTC235200335)</p>
+            <p><strong>Chuyên ngành:</strong> Kỹ thuật Phần mềm (Software Engineering) — GPA: 3.65</p>
+            <p><strong>Trường:</strong> Trường Đại học Công nghệ Thông tin và Truyền thông Thái Nguyên (ICTU)</p>
+            <p><strong>Định hướng:</strong> AI & Software Engineer, DevOps & Cloud Computing.</p>
+        </div>
+
+        <div class="section">
+            <h2>🏆 Giải thưởng & Dự án</h2>
+            <ul>
+                <li><strong>Học bổng Xuất sắc:</strong> Năm học 2024–2025 chuyên ngành Kỹ thuật Phần mềm.</li>
+                <li><strong>Dự án Chatbot ICTU:</strong> Trợ lý ảo AI hỗ trợ sinh viên và cán bộ giảng viên ICTU giải đáp thủ tục và thông tin đào tạo.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Mục tiêu học tập môn Vận hành & Bảo trì Phần mềm</h2>
+            <ul>
+                <li>Nắm vững triết lý <strong>DevOps & nguyên tắc CALMS</strong> (Culture, Automation, Lean, Measurement, Sharing).</li>
+                <li>Thành thạo xây dựng <strong>CI/CD Pipelines</strong> tự động hóa quy trình kiểm thử và phát hành.</li>
+                <li>Làm chủ công nghệ ảo hóa & container hóa với <strong>Docker & Kubernetes</strong>.</li>
+                <li>Thực hành Cơ sở hạ tầng dưới dạng mã (IaC) với <strong>Terraform & Ansible</strong>.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
