@@ -1,0 +1,93 @@
+================================================================================
+BÀI THỰC HÀNH LAB 1: TRẢI NGHIỆM DEVOPS WORKFLOW END-TO-END
+HỌC PHẦN: VẬN HÀNH VÀ BẢO TRÌ PHẦN MỀM (DEVOPS)
+GIẢNG VIÊN HƯỚNG DẪN: TS. PHẠM THỊ THƯƠNG
+================================================================================
+
+I. THÔNG TIN SINH VIÊN
+--------------------------------------------------------------------------------
+- Họ và tên: Nguyễn Mạnh Hùng
+- Mã số sinh viên: DTC235200335
+- Lớp / Ngành: Kỹ thuật Phần mềm (Software Engineering) - K22
+- Trường: Trường Đại học Công nghệ Thông tin và Truyền thông Thái Nguyên (ICTU)
+- Email: dtc235200335@ictu.edu.vn / Manhhungnguyen311@gmail.com
+- GitHub Account: https://github.com/nmhung311
+- GitHub Repository: https://github.com/nmhung311/devops-lab1-portfolio
+- Live Website URL: https://nmhung311.github.io/devops-lab1-portfolio/
+
+================================================================================
+II. KẾT QUẢ THỰC HIỆN LAB 1
+================================================================================
+1. Cấu trúc mã nguồn đã tạo:
+   - index.html: Trang chủ giới thiệu cá nhân (Portfolio) responsive, hiện đại.
+   - about.html: Trang giới thiệu chi tiết (đáp ứng bài tập mở rộng Multi-page).
+   - contact.html: Trang liên hệ (đáp ứng bài tập mở rộng Multi-page).
+   - avatar.png: Ảnh đại diện sinh viên (đáp ứng bài tập mở rộng Avatar).
+   - .github/workflows/deploy.yml: Pipeline tự động kiểm thử và deploy lên GitHub Pages.
+   - README.md: Hướng dẫn chi tiết dự án.
+
+2. Trạng thái Pipeline CI/CD:
+   - Trigger: Push lên nhánh `main` hoặc chạy thủ công qua `workflow_dispatch`.
+   - Các bước:
+     + Checkout Code (actions/checkout@v4)
+     + Validate HTML Files (Kiểm tra sự tồn tại và tính hợp lệ của index.html, about.html, contact.html)
+     + Deploy to GitHub Pages (peaceiris/actions-gh-pages@v4 xuất bản lên nhánh gh-pages)
+   - Kết quả: Pipeline chạy thành công 100% (All steps green ✅).
+   - Website trực tuyến hoạt động ổn định tại: https://nmhung311.github.io/devops-lab1-portfolio/
+
+================================================================================
+III. BẢNG SO SÁNH: DEVOPS VS TRUYỀN THỐNG (TRADITIONAL)
+================================================================================
+| Tiêu chí                     | Cách THỦ CÔNG (Traditional)                           | Cách DEVOPS (CI/CD Pipeline)                           |
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 1. Làm sao để deploy?        | Mở FileZilla/FTP/SSH, tải file thủ công lên server,   | Chỉ cần `git push` lên GitHub, hệ thống CI/CD pipeline |
+|                              | gõ lệnh khởi động lại web server bằng tay.            | tự động kích hoạt và thực thi việc triển khai.         |
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 2. Mất bao lâu?              | 15 - 30 phút mỗi lần cập nhật.                        | ~10 - 20 giây thực thi hoàn toàn tự động.              |
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 3. Ai làm deploy?            | Con người (Dev hoặc kỹ sư Ops thao tác trực tiếp).     | Máy ảo GitHub Actions Runner (Hệ thống tự động).      |
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 4. Có bị sai sót không?      | Rất dễ sai sót (quên copy file, phân quyền sai,       | Không có sai sót — quy trình được mã hóa dạng code     |
+|                              | đè nhầm file cấu hình của server).                    | (Pipeline as Code) đảm bảo chuẩn xác và nhất quán 100%.|
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 5. Rollback nếu lỗi?         | Phức tạp, phải tìm lại bản backup cũ rồi chép đè      | Đơn giản, an toàn: Dùng `git revert <commit>` và push, |
+|                              | lại bằng tay, thời gian gián đoạn dài (downtime).     | pipeline tự động phát hành lại phiên bản ổn định cũ.   |
+|------------------------------|-------------------------------------------------------|--------------------------------------------------------|
+| 6. Làm sao biết deploy       | Tự mở trình duyệt kiểm tra thủ công, dễ bỏ sót lỗi    | GitHub Actions hiển thị trực quan từng step ✅/❌,    |
+|    thành công?               | ẩn bên trong hệ thống.                                | gửi email/thông báo kết quả tức thì.                   |
+================================================================================
+
+================================================================================
+IV. TRẢ LỜI CÂU HỎI THU HOẠCH
+================================================================================
+Câu hỏi 1: DevOps workflow tự động hóa những bước nào mà cách thủ công phải làm bằng tay?
+Trả lời:
+- DevOps workflow thông qua GitHub Actions tự động hóa toàn bộ các khâu trung gian:
+  + Tự động lấy mã nguồn mới nhất (Checkout).
+  + Tự động kiểm tra chất lượng và cú pháp file mã nguồn (HTML Validation/Linting).
+  + Tự động đóng gói và xuất bản tài nguyên lên hosting (Build & Deploy to GitHub Pages).
+  + Tự động quản lý nhánh phát hành (`gh-pages`) và cung cấp chứng chỉ SSL HTTPS.
+  + Tự động ghi nhật ký (logs) và gửi cảnh báo khi phát sinh lỗi trong quá trình chạy.
+
+Câu hỏi 2: Nếu bạn deploy sai (website bị lỗi), làm sao để quay lại phiên bản cũ?
+Trả lời:
+- Nhờ việc quản lý mã nguồn bằng Git kết hợp CI/CD, việc rollback diễn ra cực kỳ an toàn:
+  + Lập trình viên chỉ cần chạy lệnh `git revert <commit-lỗi>` trên máy local để tạo commit đảo ngược trạng thái lỗi, hoặc `git reset` về commit ổn định gần nhất.
+  + Sau đó chạy lệnh `git push origin main`.
+  + Ngay lập tức, GitHub Actions sẽ phát hiện commit mới, tự động chạy lại pipeline và xuất bản phiên bản ổn định lên GitHub Pages trong vòng 10 giây mà không cần can thiệp trực tiếp vào máy chủ.
+
+Câu hỏi 3: GitHub Actions pipeline đã giúp bạn tiết kiệm bao nhiêu thời gian so với cách thủ công?
+Trả lời:
+- Giúp tiết kiệm từ 90% đến 95% thời gian thao tác.
+  + Với quy trình thủ công: Mỗi lần sửa đổi (dù chỉ là 1 dòng code) đều cần mở phần mềm kết nối, nhập thông tin đăng nhập máy chủ, tìm đúng thư mục đích, sao chép đè file, kiểm tra quyền truy cập... mất từ 15 đến 30 phút và tiềm ẩn nhiều nguy cơ lỗi con người.
+  + Với DevOps GitHub Actions: Chỉ mất 5 giây gõ lệnh `git commit` & `git push`, pipeline tự động làm phần còn lại trong ~15 giây. Nhờ đó nhà phát triển có thể tập trung hoàn toàn vào việc sáng tạo giá trị cho sản phẩm.
+
+================================================================================
+V. DANH MỤC HÌNH ẢNH MINH CHỨNG (KÈM TRONG THƯ MỤC screenshots/)
+================================================================================
+1. 01-github-repo.png: Repository nmhung311/devops-lab1-portfolio trên GitHub.
+2. 02-pipeline-running.png: Giao diện GitHub Actions khi pipeline đang chạy tự động.
+3. 03-pipeline-success.png: Giao diện GitHub Actions khi tất cả các bước hoàn thành (All steps passed).
+4. 04-website-online.png: Website Portfolio hoạt động trực tuyến trên trình duyệt tại URL GitHub Pages.
+5. 05-update-pipeline.png: Pipeline tự động kích hoạt và cập nhật khi commit chỉnh sửa mã nguồn.
+6. 06-comparison-table.png: Bảng so sánh DevOps vs Traditional và sơ đồ trực quan hóa Workflow.
