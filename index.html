@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Lab 1 — Nguyễn Mạnh Hùng Portfolio</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --secondary: #06b6d4;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --success: #10b981;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #4338ca 0%, #312e81 50%, #1e1b4b 100%);
+            min-height: 100vh;
+            color: #1f2937;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        nav {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            padding: 14px 28px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        nav .brand {
+            color: #fff;
+            font-weight: 700;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        nav .links {
+            display: flex;
+            gap: 20px;
+        }
+        nav a.nav-link {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        nav a.nav-link:hover, nav a.nav-link.active {
+            color: #38bdf8;
+        }
+        .container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 760px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-light);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+            margin-bottom: 16px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 30px;
+            margin-bottom: 6px;
+            font-weight: 800;
+        }
+        h2 {
+            color: #64748b;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 22px;
+            margin: 20px 0;
+            text-align: left;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        @media (max-width: 600px) {
+            .info-card { grid-template-columns: 1fr; }
+        }
+        .info-card p {
+            font-size: 14.5px;
+            color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .status-badge {
+            background: #dcfce7;
+            color: #15803d;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.7; }
+        }
+        .badges-wrapper {
+            margin: 24px 0 16px;
+        }
+        .badge-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge {
+            display: inline-block;
+            background: #eef2ff;
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13.5px;
+            font-weight: 600;
+            margin: 4px;
+            border: 1px solid #c7d2fe;
+            transition: transform 0.2s;
+        }
+        .badge:hover {
+            transform: translateY(-2px);
+            background: var(--primary);
+            color: white;
+        }
+        .pipeline-flow {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .flow-arrow {
+            color: #94a3b8;
+            font-weight: 700;
+        }
+        .footer {
+            margin-top: 24px;
+            padding-top: 18px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+        }
+        .footer-highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="brand">🚀 DevOps Lab 1</a>
+        <div class="links">
+            <a href="index.html" class="nav-link active">Trang chủ</a>
+            <a href="about.html" class="nav-link">Giới thiệu</a>
+            <a href="contact.html" class="nav-link">Liên hệ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-header">
+            <img src="avatar.png" alt="Nguyễn Mạnh Hùng" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Nguyen+Manh+Hung&background=4f46e5&color=fff&size=128'">
+            <h1>Nguyễn Mạnh Hùng</h1>
+            <h2>Kỹ thuật Phần mềm — Trường ĐH Công nghệ Thông tin & Truyền thông Thái Nguyên (ICTU)</h2>
+        </div>
+
+        <div class="info-card">
+            <p><strong>👤 Sinh viên:</strong> Nguyễn Mạnh Hùng</p>
+            <p><strong>🆔 Mã số sinh viên:</strong> DTC235200335</p>
+            <p><strong>📚 Học phần:</strong> Vận hành & Bảo trì Phần mềm (DevOps)</p>
+            <p><strong>👩‍🏫 Giảng viên:</strong> TS. Phạm Thị Thương</p>
+            <p><strong>🎯 Bài thực hành:</strong> Lab 1 — Workflow End-to-End</p>
+            <p><strong>🚀 Deploy bởi:</strong> GitHub Actions CI/CD</p>
+            <p><strong>📅 Ngày deploy:</strong> <span id="deployDate">Đang cập nhật...</span></p>
+            <p><strong>🔄 Pipeline Status:</strong> <span class="status-badge"><span class="status-dot"></span> Automated Live</span></p>
+        </div>
+
+        <div class="badges-wrapper">
+            <div class="badge-title">DevOps Toolchain & Tech Stack</div>
+            <span class="badge">Git</span>
+            <span class="badge">GitHub Actions</span>
+            <span class="badge">GitHub Pages</span>
+            <span class="badge">CI/CD Pipeline</span>
+            <span class="badge">CALMS Principles</span>
+            <span class="badge">HTML5/CSS3</span>
+            <span class="badge">Python</span>
+            <span class="badge">Docker</span>
+            <span class="badge">FastAPI</span>
+        </div>
+
+        <div class="pipeline-flow">
+            <span class="flow-step">📋 Plan</span>
+            <span class="flow-arrow">➔</span>
+            <span class="flow-step">💻 Code</span>
+            <span class="flow-arrow">➔</span>
+            <span class="flow-step">📦 Build</span>
+            <span class="flow-arrow">➔</span>
+            <span class="flow-step">🧪 Test</span>
+            <span class="flow-arrow">➔</span>
+            <span class="flow-step">🚀 Deploy</span>
+            <span class="flow-arrow">➔</span>
+            <span class="flow-step">📊 Monitor</span>
+        </div>
+
+        <div class="footer">
+            <p>Triển khai tự động thông qua <span class="footer-highlight">GitHub Actions Pipeline</span> lên <span class="footer-highlight">GitHub Pages</span></p>
+            <p>🔄 <em>Push Code → CI Validation → Auto Deploy → Live Production!</em></p>
+        </div>
+    </div>
+
+    <script>
+        const now = new Date();
+        document.getElementById('deployDate').textContent = now.toLocaleDateString('vi-VN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>
