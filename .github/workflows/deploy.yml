@@ -12,22 +12,20 @@ on:
     branches:
       - main
       - master
-  workflow_dispatch: # Cho phép trigger thủ công từ giao diện GitHub Actions
+  workflow_dispatch:
 
-# Cấp quyền cho GitHub Actions có thể push nhánh gh-pages
 permissions:
   contents: write
 
-# === Các job trong pipeline ===
 jobs:
   build-and-deploy:
     name: 🏗️ Build, Test & Deploy
-    runs-on: ubuntu-latest # Chạy trên máy ảo Ubuntu runner miễn phí
+    runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout mã nguồn từ repository
+      # Step 1: Checkout mã nguồn từ repository (pinned to full-length SHA for security)
       - name: 📦 Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       # Step 2: Kiểm tra cấu trúc các file HTML
       - name: 🧪 Validate HTML Files
@@ -53,9 +51,9 @@ jobs:
           fi
           echo "🎉 Tất cả các file HTML đã qua kiểm tra thành công!"
 
-      # Step 3: Triển khai website lên nhánh gh-pages (GitHub Pages)
+      # Step 3: Triển khai website lên nhánh gh-pages (pinned to full-length SHA for security)
       - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+        uses: peaceiris/actions-gh-pages@84c30a85c19949d7eee79c4ff27748b70285e453 # v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./
